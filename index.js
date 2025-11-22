@@ -14,6 +14,22 @@ const pool = new Pool({
   }
 });
 
+// Create table if not exists
+async function createTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS items (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL
+      );
+    `);
+    console.log("Table ready");
+  } catch (err) {
+    console.error("Table error:", err);
+  }
+}
+
+createTable();
 
 // test route
 app.get("/db-test", async (req, res) => {
@@ -34,4 +50,5 @@ const port = process.env.PORT || 10000;
 app.listen(port, () => {
   console.log("Server running on port " + port);
 });
+
 
