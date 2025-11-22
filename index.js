@@ -14,7 +14,7 @@ const pool = new Pool({
   }
 });
 
-// Create table if not exists
+// Create table automatically if not exists
 async function createTable() {
   try {
     await pool.query(`
@@ -23,9 +23,9 @@ async function createTable() {
         name TEXT NOT NULL
       );
     `);
-    console.log("Table ready");
+    console.log("Table created or already exists.");
   } catch (err) {
-    console.error("Table error:", err);
+    console.error("Error creating table:", err);
   }
 }
 
@@ -41,6 +41,29 @@ app.get("/db-test", async (req, res) => {
   }
 });
 
+// get items
+app.get("/items", async (req, res) => {
+  try {
+    const items = await pool.query("SELECT * FROM items");
+    res.json(items.rows);
+  } catch (err) {
+    res.json({ error: err.message });
+  }
+});
+
+// add item
+app.post("/add", async (req, res) => {
+  try {
+    const { name } = req.body;
+    const result = await pool.query(
+      "INSERT INTO items (name) VALUES ($1) RETURNING *",
+      [name]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.json({ error: err.message });
+  }
+});
 
 app.get("/", (req, res) => {
   res.json({ message: "Backend is working!" });
