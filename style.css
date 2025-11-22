@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding :0;
+    font-family: 'Poppins' , sans-serif;
+    box-sizing : border-box;
+
+}
+ .hero{
+    width: 100%;
+    min-height:100vh;
+    background: linear-gradient(#0f2027 , #203a43 ,#2c5364 );
+    color: #00ffff;
+    position:relative;
+ }
+ .container{
+    width : 500px;
+    height :180px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform :translate(-50%,-50%);
+    background :rgb(79, 48, 79);
+ }
+
+ .clock{
+    width:100%;
+    height:100%;
+    background : rgba(0, 255, 255, 0.1);
+    border-radius: 10px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(40px);
+ }
+ .container::before{
+    content: '';
+    width: 180px;
+    height : 180px;
+    background :#00c3ff  ;
+    border-radius: 5px;
+    position : absolute;
+    top:-50%;
+    left: -30%;
+    z-index: -1;
+ }
+
+.container::after{
+    content: '';
+    width: 180px;
+    height : 180px;
+    background : #ffff1c ;
+    border-radius: 50%;
+    position : absolute;
+    bottom :-50%;
+    right: -25%;
+    z-index: -1;
+ }
+ .clock span{
+    font-size:60px;
+    width:110px;
+    display:inline-block;
+    text-align : center;
+    position:relative;
+ }
+
+ .clock span::after{
+    
+    font-size: 16px;
+    position: absolute;
+    bottom: -5px;
+    left:24%;
+    transform: tramslate(-50%);
+    text-align: center;
+    justify-content : center;
+ }
+
+ #hrs::after{
+    content: 'HOURS';
+ }
+ #min::after{
+    content: 'MINS';
+ }
+ #sec::after{
+    content: 'SEC';
+ }
+ 
